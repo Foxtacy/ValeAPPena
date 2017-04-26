@@ -1,0 +1,25 @@
+{
+  "name": "valeappena",
+  "productName": "ValeAPPena",
+  "version": "1.0.0",
+  "description": "ValeAPPena",
+  "main": "src/main.js",
+  "scripts": {
+    "buildAll": "electron-packager . ValeAPPena --platform=darwin,win32,linux --arch=x64 --icon=app --version=0.27.2",
+    "buildWin": "electron-packager . ValeAPPena --ignore=node_modules/electron-* --platform=win32 --arch=x64 --icon=app --version=1.4.6 --overwrite",
+    "buildLin": "electron-packager . ValeAPPena --platform=linux --arch=x64 --icon=app --version=0.27.2",
+    "buildMac": "electron-packager . ValeAPPena --platform=darwin --arch=x64 --icon=app --version=0.27.2",
+    "package": "asar pack ValeAPPena/src/app.asar",
+    "start": "electron .",
+    "version": "electron -v"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "asar": "^0.12.3",
+    "electron-packager": "^8.2.0",
+    "electron-prebuilt": "^1.4.6",
+    "rimraf": "^2.5.4"
+  }
+}

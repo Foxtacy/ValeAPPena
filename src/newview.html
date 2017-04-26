@@ -1,0 +1,102 @@
+<html>
+    <head>
+        <script src="C:\Workspace\JS\Software\electrondesktopapppoc\node_modules\jquery\dist\jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="C:\Workspace\JS\Software\electrondesktopapppoc\node_modules\bootstrap\dist\css\bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="C:\Workspace\JS\Software\electrondesktopapppoc\node_modules\sweetalert\dist\sweetalert.css">
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Entre com os dados abaixo. As metas serão usadas para determinar se vale ou não a pena.</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="spanCOD">Custo Operacional Diário</span>
+                                    <input id="inputCOD" type="text" class="form-control" placeholder="Custo Operacional Diário" aria-describedby="spanCod">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="spanHTD">Horas de Trabalho Diárias</span>
+                                    <input id="inputHTD" type="text" class="form-control" placeholder="Horas de Trabalho Diárias" aria-describedby="spanHTD">
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6 col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="spanVDH">Valor da Hora</span>
+                                    <input id="inputVDH" type="text" class="form-control" placeholder="Valor da Hora" aria-describedby="spanVDH">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="spanND">Número de Dias</span>
+                                    <input id="inputND" type="text" class="form-control" placeholder="Número de Dias" aria-describedby="spanND">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="spanMP">Meta Período</span>
+                                    <input id="inputMP" type="text" class="form-control" placeholder="Meta Período" aria-describedby="spanMD">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="spanMD">Meta Diária</span>
+                                    <input id="inputMD" type="text" class="form-control" placeholder="Meta Diária" aria-describedby="spanMD">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="spanMM">Meta Mensal</span>
+                                    <input id="inputMM" type="text" class="form-control" placeholder="Meta Mensal" aria-describedby="spanMM">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon" id="spanMA">Meta Anual</span>
+                                    <input id="inputMA" type="text" class="form-control" placeholder="Meta Anual" aria-describedby="spanMA">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 col-sm-6">
+                                <button id="btnCalculate" type="button" class="btn btn-success btn-lg btn-block">Calcular</button>
+                                <script>require('./newviewController.js')</script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">E aí? vale a pena?</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div id="result">Ainda não sei :(</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+
+
+

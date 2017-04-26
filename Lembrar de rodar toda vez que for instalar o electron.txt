@@ -1,0 +1,11 @@
+npm install electron-prebuilt@latest --save-dev
+npm install electron-pacakger@latest --save-dev
+npm install asar@latest --save-dev
+
+
+npm install rimraf@latest --save-dev
+
+
+
+inserir isso aqui no package.json
+    "build": "electron-packager . ElectronDesktopAppPoc --platform=darwin,win32,linux --arch=x64 --icon=app --version=0.27.2",
