@@ -4,6 +4,7 @@ const ipc = electron.ipcRenderer
 const swal = require('sweetalert')
 
 $('#btnCalculate').on('click', function(){
+    //teste
     
     var custoOperacionalDiario  = parseFloat($('#inputCOD').val());
     var horasTrabalhoDia        = parseFloat($('#inputHTD').val());
