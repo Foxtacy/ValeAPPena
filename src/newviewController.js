@@ -2,6 +2,7 @@ const electron = require('electron')
 const $ = require('jquery')
 const ipc = electron.ipcRenderer
 const swal = require('sweetalert')
+const InputMask = require('inputmask')
 
 function Meta (){
     this.valor = 0;
@@ -100,6 +101,19 @@ $('#btnAddGoal').on('click', function(){
     $("#metas").append(templateNovaMeta.split("{v}").join(formId));
     formId++;
 });
+
+$(document).ready(function (){
+    /*
+    $('#inputCOD').inputmask({'mask': '999.999.999.99'});
+    $("#inputCOD").mask('000.000.000.000.000,00', {reverse: true});
+    $("#inputHTD").mask('00000000000000000', {reverse: true});
+    $("#inputVDH").mask('000.000.000.000.000,00', {reverse: true});
+    $("#inputVB").mask('000.000.000.000.000,00', {reverse: true});
+    $("#inputPM").mask('00000000000000000', {reverse: true});
+    $("#inputVM").mask('000.000.000.000.000,00', {reverse: true});
+    */
+});
+
 
 /*
 ipc.on('countdown', (evt, count) => {

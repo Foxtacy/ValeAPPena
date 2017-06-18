@@ -20,6 +20,8 @@ function appOnReady(){
             mainWindow = null;
         });        
         
+        
+
     //});
 }
 
