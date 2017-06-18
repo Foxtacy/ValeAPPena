@@ -3,106 +3,76 @@ const $ = require('jquery')
 const ipc = electron.ipcRenderer
 const swal = require('sweetalert')
 
-var Meta = {
-    valor : 0,
-    valorAcumuladoPeriodo : 0,
-    periodo: 0,
-    montarResultado : function(){
-        var periodo = templateStringPeriodo.split("{periodo}").join(periodo);
+function Meta (){
+    this.valor = 0;
+    this.periodo = 0;
+    this.valorAcumuladoPeriodo = 0;
+    this.calcularValorAcumuladoPeriodo = function(valorAcumuladoDia,valorBase){
+        this.valorAcumuladoPeriodo = valorAcumuladoDia * this.periodo;
+        this.valorAcumuladoPeriodo += valorBase;
+    }
+    this.montarResultado = function(){
+        var strPeriodo = templateStringPeriodo.split("{periodo}").join(this.periodo);
         var resultado = "";
         if (this.valorAcumuladoPeriodo >= this.valor){
-            resultado = templateStringVale.split("{periodo}").join(periodo);
-            return '<p class="bg-success">'+periodo + resultado+"</p>";
+            resultado = templateStringVale.split("{periodo}").join(this.periodo);
+            return '<p class="bg-success">'+strPeriodo + resultado+"</p>";
         } else {
-            resultado = templateStringNaoVale.split("{periodo}").join(periodo);
-            return '<p class="bg-danger">'+periodo + resultado+"</p>";
+            var faltou = parseFloat(this.valor - this.valorAcumuladoPeriodo);
+            resultado = templateStringNaoVale.split("{periodo}").join(this.periodo)
+                                             .split("{faltou}").join(faltou);
+            return '<p class="bg-danger">'+strPeriodo + resultado+"</p>";
         }
     }
-}
+}   
 
+var formId = 0;
 var templateStringPeriodo = 'O valor acumulado no período de {periodo} dias é: ';
 var templateStringVale = 'Em termos de valor em {periodo} dias vale a pena! ';
 var templateStringNaoVale = 'Em termos de valor em {periodo} dias não vale a pena! Faltou: {faltou} para atingir a meta!';
 
 $('#btnCalculate').on('click', function(){
-    //teste
-    
+
     var custoOperacionalDiario  = parseFloat($('#inputCOD').val());
     var horasTrabalhoDia        = parseFloat($('#inputHTD').val());
     var valorHora               = parseFloat($('#inputVDH').val());
-    var numeroDias              = parseFloat($('#inputND').val());
-
-    var metaDiaria  = parseFloat($('#inputMD').val());
-    var metaMensal  = parseFloat($('#inputMM').val());
-    var metaAnual   = parseFloat($('#inputMA').val());
-    var metaPeriodo = parseFloat($('#inputMP').val());
-
-    var valorAcumuladoDia     = (horasTrabalhoDia * valorHora) - custoOperacionalDiario;
-    var valorAcumuladoMes     = valorAcumuladoDia * 30;
-    var valorAcumuladoAno     = valorAcumuladoMes * 12;
-    var valorAcumuladoPeriodo = valorAcumuladoDia * numeroDias;
-
-    var bateuDiaria  = valorAcumuladoDia >= metaDiaria;
-    var bateuMensal  = valorAcumuladoMes >= metaMensal;
-    var bateuAnual   = valorAcumuladoAno >= metaAnual;
-    var bateuPeriodo = valorAcumuladoPeriodo >= metaPeriodo;
-
-    var fraseDia = '';
-    var fraseMes = '';
-    var fraseAno = '';
-    var frasePeriodo = '';
-
-    if (metaDiaria > 0 && valorAcumuladoDia != NaN){
-        fraseDia += 'O valor acumulado por dia é: '+valorAcumuladoDia+' ';
-        if(bateuDiaria){
-            fraseDia += 'Em termos de valor diário vale a pena! ';
-            fraseDia = '<p class="bg-success">'+fraseDia+"</p>";
-        } else {
-            fraseDia += 'Em termos de valor diário não vale a pena! Faltou: '+parseInt(metaDiaria-valorAcumuladoDia)+ ' para atingir a meta!';
-            fraseDia = '<p class="bg-danger">'+fraseDia+"</p>";
-        }
-    }
-
-    if(metaMensal > 0 && valorAcumuladoMes != NaN){
-        fraseMes += 'O valor acumulado por mes é: '+valorAcumuladoMes+' ';
-        if(bateuMensal){
-            fraseMes += 'Em termos de valor mensal vale a pena! ';
-            fraseMes = '<p class="bg-success">'+fraseMes+"</p>";
-        } else {
-            fraseMes += 'Em termos de valor mensal não vale a pena! Faltou: '+parseInt(metaMensal-valorAcumuladoMes)+ ' para atingir a meta!';
-            fraseMes = '<p class="bg-danger">'+fraseMes+"</p>";
-        }
-    }
-
-    if(metaAnual > 0 && valorAcumuladoAno != NaN){
-        fraseAno += 'O valor acumulado por ano é: '+valorAcumuladoAno+' ';
-        if(bateuAnual){
-            fraseAno += 'Em termos de valor anual vale a pena! ';
-            fraseAno = '<p class="bg-success">'+fraseAno+"</p>";
-        } else {
-            fraseAno += 'Em termos de valor anual não vale a pena! Faltou: '+parseInt(metaAnual-valorAcumuladoAno)+ ' para atingir a meta!';
-            fraseAno = '<p class="bg-danger">'+fraseAno+"</p>";
-        }
-    }
-
-    if (metaPeriodo > 0 && valorAcumuladoPeriodo != NaN ){
-        frasePeriodo += 'O valor acumulado no período é: '+valorAcumuladoPeriodo+' ';
-        if(bateuPeriodo){
-            frasePeriodo += 'Em termos do período estipulado vale a pena! ';
-            frasePeriodo = '<p class="bg-success">'+frasePeriodo+"</p>"
-        } else {
-            frasePeriodo += 'Em termos do período estipulado não vale a pena! Faltou: '+parseInt(metaPeriodo-valorAcumuladoPeriodo)+ ' para atingir a meta!';
-            frasePeriodo = '<p class="bg-danger">'+frasePeriodo+"</p>"
-        }
-    }
+    var valorBase               = parseFloat($('#inputVB').val());
     
-    if (fraseDia == '' && fraseMes == '' && fraseAno == '' && frasePeriodo == ''){
-        swal('Preencha pelo menos uma meta!');
-        return;
-    }
+    var valorAcumuladoDia     = (horasTrabalhoDia * valorHora) - custoOperacionalDiario;
+    
+    var text = "";
+    
+    var metaIds = $(".meta").each(function(i,e){
+        var meta = new Meta();
+        meta.valor = parseFloat($("#inputVM"+e.id).val());
+        meta.periodo = parseFloat($("#inputPM"+e.id).val());
+        meta.calcularValorAcumuladoPeriodo(valorAcumuladoDia,valorBase);
+        text += meta.montarResultado();
+    });
 
-    var text = fraseDia + fraseMes + fraseAno + frasePeriodo; 
     $('#result').html(text);
+
+});
+
+
+$('#btnAddGoal').on('click', function(){
+    var templateNovaMeta = "<div id='{v}' class='meta'>"
+                                .concat("<div class='col-md-6 col-sm-6'>")
+                                .concat("<div class='input-group'>")
+                                    .concat("<span class='input-group-addon' id='spanPM{v}'>Período da Meta</span>")
+                                    .concat("<input id='inputPM{v}' type='text' class='form-control' placeholder='Período da Meta' aria-describedby='spanPM{v}'>")
+                                    .concat("</div>")
+                                .concat("</div>")
+                                .concat("<div class='col-md-6 col-sm-6'>")
+                                .concat("<div class='input-group'>")
+                                    .concat("<span class='input-group-addon' id='spanVM{v}'>Valor da Meta</span>")
+                                    .concat("<input id='inputVM{v}' type='text' class='form-control' placeholder='Valor da Meta' aria-describedby='spanVM{v}'>")
+                                    .concat("</div>")
+                                .concat("</div>")
+                            .concat("</div>");
+
+    $("#metas").append(templateNovaMeta.split("{v}").join(formId));
+    formId++;
 });
 
 /*
