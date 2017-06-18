@@ -31,11 +31,6 @@ var templateStringPeriodo = 'O valor acumulado no período de {periodo} dias é:
 var templateStringVale = 'Em termos de valor em {periodo} dias vale a pena! ';
 var templateStringNaoVale = 'Em termos de valor em {periodo} dias não vale a pena! Faltou: {faltou} para atingir a meta!';
 
-/* Lógica de validação
-swal('Preencha pelo menos uma meta!');
-        return;
-*/
-
 $('#btnCalculate').on('click', function(){
 
     var custoOperacionalDiario  = parseFloat($('#inputCOD').val());
