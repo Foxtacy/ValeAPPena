@@ -14,3 +14,4 @@ ValeAPPena-win32-x64/resources/electron.asar
 ValeAPPena-win32-x64/snapshot_blob.bin
 ValeAPPena-win32-x64/ui_resources_200_percent.pak
 ValeAPPena-win32-x64/views_resources_200_percent.pak
+node_modules/

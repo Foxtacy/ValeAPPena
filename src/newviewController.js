@@ -3,6 +3,27 @@ const $ = require('jquery')
 const ipc = electron.ipcRenderer
 const swal = require('sweetalert')
 
+var Meta = {
+    valor : 0,
+    valorAcumuladoPeriodo : 0,
+    periodo: 0,
+    montarResultado : function(){
+        var periodo = templateStringPeriodo.split("{periodo}").join(periodo);
+        var resultado = "";
+        if (this.valorAcumuladoPeriodo >= this.valor){
+            resultado = templateStringVale.split("{periodo}").join(periodo);
+            return '<p class="bg-success">'+periodo + resultado+"</p>";
+        } else {
+            resultado = templateStringNaoVale.split("{periodo}").join(periodo);
+            return '<p class="bg-danger">'+periodo + resultado+"</p>";
+        }
+    }
+}
+
+var templateStringPeriodo = 'O valor acumulado no período de {periodo} dias é: ';
+var templateStringVale = 'Em termos de valor em {periodo} dias vale a pena! ';
+var templateStringNaoVale = 'Em termos de valor em {periodo} dias não vale a pena! Faltou: {faltou} para atingir a meta!';
+
 $('#btnCalculate').on('click', function(){
     //teste
     
