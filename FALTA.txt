@@ -1,2 +1,1 @@
-- valor base, pra somar e ver se atingiu a meta.
 - máscara nos campos.

@@ -31,6 +31,11 @@ var templateStringPeriodo = 'O valor acumulado no período de {periodo} dias é:
 var templateStringVale = 'Em termos de valor em {periodo} dias vale a pena! ';
 var templateStringNaoVale = 'Em termos de valor em {periodo} dias não vale a pena! Faltou: {faltou} para atingir a meta!';
 
+/* Lógica de validação
+swal('Preencha pelo menos uma meta!');
+        return;
+*/
+
 $('#btnCalculate').on('click', function(){
 
     var custoOperacionalDiario  = parseFloat($('#inputCOD').val());
@@ -38,18 +43,44 @@ $('#btnCalculate').on('click', function(){
     var valorHora               = parseFloat($('#inputVDH').val());
     var valorBase               = parseFloat($('#inputVB').val());
     
+    var errors = [];
+
+    if (isNaN(custoOperacionalDiario)){
+        errors.push("Custo Operacional Diário");
+    }
+
+    if (isNaN(horasTrabalhoDia)){
+        errors.push("Horas de Trabalho por Dia");
+    }
+
+    if(isNaN(valorHora)){
+        errors.push("Valor da Hora");
+    }
+
+    if(isNaN(valorBase)){
+        errors.push("Valor Base");
+    }
+    
     var valorAcumuladoDia     = (horasTrabalhoDia * valorHora) - custoOperacionalDiario;
     
     var text = "";
     
     var metaIds = $(".meta").each(function(i,e){
+        var formValor = parseFloat($("#inputVM"+e.id).val());
+        if (isNaN(formValor)) errors.push ("Valor da Meta");
+        var formPeriodo = parseFloat($("#inputPM"+e.id).val());
+        if (isNaN(formPeriodo)) errors.push ("Período da Meta");
         var meta = new Meta();
-        meta.valor = parseFloat($("#inputVM"+e.id).val());
-        meta.periodo = parseFloat($("#inputPM"+e.id).val());
+        meta.valor = formValor;
+        meta.periodo = formPeriodo;
         meta.calcularValorAcumuladoPeriodo(valorAcumuladoDia,valorBase);
         text += meta.montarResultado();
     });
 
+    if (errors.length != 0){
+        swal('Existem erros nos seguintes campos: '+errors.join(","));
+        return;
+    } 
     $('#result').html(text);
 
 });
