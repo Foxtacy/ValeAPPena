@@ -2,7 +2,6 @@ const electron = require('electron')
 const $ = require('jquery')
 const ipc = electron.ipcRenderer
 const swal = require('sweetalert')
-const InputMask = require('inputmask')
 
 function Meta (){
     this.valor = 0;
@@ -103,8 +102,8 @@ $('#btnAddGoal').on('click', function(){
 });
 
 $(document).ready(function (){
+
     /*
-    $('#inputCOD').inputmask({'mask': '999.999.999.99'});
     $("#inputCOD").mask('000.000.000.000.000,00', {reverse: true});
     $("#inputHTD").mask('00000000000000000', {reverse: true});
     $("#inputVDH").mask('000.000.000.000.000,00', {reverse: true});

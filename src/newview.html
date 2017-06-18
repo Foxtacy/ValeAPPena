@@ -1,7 +1,9 @@
 <html>
     <head>
         <script src="C:\Workspace\JS\Software\valeAPPena\node_modules\jquery\dist\jquery.min.js"></script>
-        <script src="C:\Workspace\JS\Software\valeAPPena\node_modules\inputmask\dist\min\jquery.inputmask.bundle.min.js"></script>
+        
+        <script src="C:\Workspace\JS\Software\valeAPPena\node_modules\jquery-mask-plugin\dist\jquery.mask.min.js"></script>
+        
         <link rel="stylesheet" type="text/css" href="C:\Workspace\JS\Software\valeAPPena\node_modules\bootstrap\dist\css\bootstrap.css">
         <link rel="stylesheet" type="text/css" href="C:\Workspace\JS\Software\valeAPPena\node_modules\sweetalert\dist\sweetalert.css">
         <meta charset="UTF-8">
@@ -18,7 +20,7 @@
                             <div class="col-md-6 col-sm-6">
                                 <div class="input-group">
                                     <span class="input-group-addon" id="spanCOD">Custo Operacional Diário</span>
-                                    <input id="inputCOD" type="text" class="form-control" placeholder="Custo Operacional Diário" aria-describedby="spanCod">
+                                    <input id="inputCOD" type="text" class="form-control" data-mask="#.##0,00" placeholder="Custo Operacional Diário" aria-describedby="spanCod">
                                 </div>
                             </div>
 
