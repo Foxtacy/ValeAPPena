@@ -9,7 +9,7 @@ function appOnReady(){
     console.log("app start successfull");
     //[1,2,3].forEach( _ => {
         let win = new BrowserWindow({
-            width: 800,
+            width: 900,
             height: 600
         }); 
 

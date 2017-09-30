@@ -147,10 +147,9 @@ $('#btnLoad').on('click', function(){
             //openDirectory
             properties: ['openFile', 'multiSelections'],
             filters: [
-                {name: '.data', extensions: ['data']}
+                {name: 'All Files', extensions: ['*']}
             ]
         });
-    console.log(path[0]);
 
     var fileData;
 
@@ -162,10 +161,31 @@ $('#btnLoad').on('click', function(){
                 }              
                 console.log(data);
                 fileData = JSON.parse(data);
+                consumirJSON(fileData);
             })
         }
     });
 
+    
+});
+
+$('#btnNew').on('click', newForm);
+
+function newForm(){
+    data = {};
+    metas = [];
+    formId = 0;
+
+    $('#inputCOD').val("");
+    $('#inputHTD').val("");
+    $('#inputVDH').val("");
+    $('#inputVB').val("");
+
+    $("#metas").html("");
+    $("#result").html("Ainda não sei :(");
+}
+
+function consumirJSON(fileData){
     if (fileData != undefined){
         $('#inputCOD').val(fileData.custoOperacionalDiario);
         $('#inputHTD').val(fileData.horasTrabalhoDia);
@@ -181,8 +201,7 @@ $('#btnLoad').on('click', function(){
 
         $('#btnCalculate').trigger("click");
     }
-
-});
+}
 
 $(document).ready(function (){
 
