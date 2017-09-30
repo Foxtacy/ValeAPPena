@@ -2,7 +2,8 @@ const electron = require('electron')
 const $ = require('jquery')
 const ipc = electron.ipcRenderer
 const swal = require('sweetalert')
-const fs = require('fs')
+const fs = require("fs")
+const {dialog} = require('electron').remote
 
 var data = {};
 var metas = [];
@@ -121,7 +122,7 @@ $('#btnAddGoal').on('click', function(){
 $('#btnSave').on('click', function(){
     
     if (payload != null){
-        
+
         fs.writeFile("savedData.data", payload, function(err) {
             if(err) {
                 swal('Erro ao salvar arquivo: '+err);
@@ -134,7 +135,29 @@ $('#btnSave').on('click', function(){
 });
 
 $('#btnLoad').on('click', function(){
-    console.log("Load");
+    var path = dialog.showOpenDialog(
+        {
+            //openDirectory
+            properties: ['openFile', 'multiSelections'],
+            filters: [
+                {name: '.data', extensions: ['data']}
+            ]
+        });
+    console.log(path[0]);
+
+    var fileData;
+
+    fs.exists(path[0], function(exists){
+        if(exists){ // results true
+            fs.readFile(path[0], {encoding: "utf8"}, function(err, data){
+                if(err){
+                    console.log(err)
+                }              
+                console.log(data);
+                fileData = data;
+            })
+        }
+    });
 });
 
 $(document).ready(function (){
