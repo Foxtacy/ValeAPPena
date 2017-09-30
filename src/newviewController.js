@@ -3,6 +3,9 @@ const $ = require('jquery')
 const ipc = electron.ipcRenderer
 const swal = require('sweetalert')
 
+var data = {};
+var metas = [];
+
 function Meta (){
     this.valor = 0;
     this.periodo = 0;
@@ -16,7 +19,7 @@ function Meta (){
         var resultado = "";
         if (this.valorAcumuladoPeriodo >= this.valor){
             resultado = templateStringVale.split("{periodo}").join(this.periodo);
-            return '<p class="bg-success">'+strPeriodo + resultado+"</p>";
+            return '<p class="bg-success">'+strPeriodo + this.valorAcumuladoPeriodo + ". "+resultado+"</p>";
         } else {
             var faltou = parseFloat(this.valor - this.valorAcumuladoPeriodo);
             resultado = templateStringNaoVale.split("{periodo}").join(this.periodo)
@@ -57,7 +60,7 @@ $('#btnCalculate').on('click', function(){
     }
     
     var valorAcumuladoDia     = (horasTrabalhoDia * valorHora) - custoOperacionalDiario;
-    
+
     var text = "";
     
     var metaIds = $(".meta").each(function(i,e){
@@ -69,6 +72,7 @@ $('#btnCalculate').on('click', function(){
         meta.valor = formValor;
         meta.periodo = formPeriodo;
         meta.calcularValorAcumuladoPeriodo(valorAcumuladoDia,valorBase);
+        metas.push(meta);
         text += meta.montarResultado();
     });
 
@@ -76,6 +80,16 @@ $('#btnCalculate').on('click', function(){
         swal('Existem erros nos seguintes campos: '+errors.join(","));
         return;
     } 
+
+    data.custoOperacionalDiario = custoOperacionalDiario;
+    data.horasTrabalhoDia = horasTrabalhoDia;
+    data.valorHora = valorHora;
+    data.valorBase = valorBase;
+    data.valorAcumuladoDia = valorAcumuladoDia;
+    data.metas = metas;
+
+    var payload = JSON.stringify(data);
+
     $('#result').html(text);
 
 });
@@ -99,6 +113,14 @@ $('#btnAddGoal').on('click', function(){
 
     $("#metas").append(templateNovaMeta.split("{v}").join(formId));
     formId++;
+});
+
+$('#btnSave').on('click', function(){
+    console.log("Save");
+});
+
+$('#btnLoad').on('click', function(){
+    console.log("Load");
 });
 
 $(document).ready(function (){
