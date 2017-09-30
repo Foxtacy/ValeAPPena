@@ -161,10 +161,27 @@ $('#btnLoad').on('click', function(){
                     console.log(err)
                 }              
                 console.log(data);
-                fileData = data;
+                fileData = JSON.parse(data);
             })
         }
     });
+
+    if (fileData != undefined){
+        $('#inputCOD').val(fileData.custoOperacionalDiario);
+        $('#inputHTD').val(fileData.horasTrabalhoDia);
+        $('#inputVDH').val(fileData.valorHora);
+        $('#inputVB').val(fileData.valorBase);
+
+        for (var i = 0; i<fileData.metas.length;i++){
+            var e = fileData.metas[i];
+            $('#btnAddGoal').trigger('click');
+            $("#inputVM"+i).val(e.valor);
+            $("#inputPM"+i).val(e.periodo);
+        }
+
+        $('#btnCalculate').trigger("click");
+    }
+
 });
 
 $(document).ready(function (){
