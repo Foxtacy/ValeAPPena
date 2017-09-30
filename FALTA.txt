@@ -1,1 +1,3 @@
-- máscara nos campos.
+- Máscara nos campos
+- Otimizar o código reutilizando o que for possível
+- Repensar o layout, tá horrível XD
