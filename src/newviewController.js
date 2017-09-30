@@ -6,6 +6,8 @@ const swal = require('sweetalert')
 var data = {};
 var metas = [];
 
+var payload = {};
+
 function Meta (){
     this.valor = 0;
     this.periodo = 0;
@@ -88,7 +90,7 @@ $('#btnCalculate').on('click', function(){
     data.valorAcumuladoDia = valorAcumuladoDia;
     data.metas = metas;
 
-    var payload = JSON.stringify(data);
+    payload = JSON.stringify(data);
 
     $('#result').html(text);
 
