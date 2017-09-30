@@ -123,13 +123,20 @@ $('#btnSave').on('click', function(){
     
     if (payload != null){
 
-        fs.writeFile("savedData.data", payload, function(err) {
-            if(err) {
-                swal('Erro ao salvar arquivo: '+err);
-            }
+        dialog.showSaveDialog(function (fileName) {
 
-            swal('Arquivo salvo com sucesso!, Nome: savedData.data');
+            if (fileName === undefined) return;
+
+            fs.writeFile(fileName, payload, function(err) {
+                if(err) {
+                    swal('Erro ao salvar arquivo: '+err);
+                }
+
+                swal('Arquivo salvo com sucesso!, em: '+path);
+            }); 
+
         }); 
+        
     }
 
 });
