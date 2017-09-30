@@ -2,11 +2,12 @@ const electron = require('electron')
 const $ = require('jquery')
 const ipc = electron.ipcRenderer
 const swal = require('sweetalert')
+const fs = require('fs')
 
 var data = {};
 var metas = [];
 
-var payload = {};
+var payload = null;
 
 function Meta (){
     this.valor = 0;
@@ -118,7 +119,18 @@ $('#btnAddGoal').on('click', function(){
 });
 
 $('#btnSave').on('click', function(){
-    console.log("Save");
+    
+    if (payload != null){
+        
+        fs.writeFile("savedData.data", payload, function(err) {
+            if(err) {
+                swal('Erro ao salvar arquivo: '+err);
+            }
+
+            swal('Arquivo salvo com sucesso!, Nome: savedData.data');
+        }); 
+    }
+
 });
 
 $('#btnLoad').on('click', function(){
