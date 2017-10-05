@@ -1,3 +1,4 @@
 - Máscara nos campos
 - Otimizar o código reutilizando o que for possível
 - Repensar o layout, tá horrível XD
+- Problema maluco dos CSS não pegando porque problemas em relative path
