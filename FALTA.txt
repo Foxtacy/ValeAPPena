@@ -1,5 +1,19 @@
 - Máscara nos campos
 - Otimizar o código reutilizando o que for possível
 - Repensar o layout, tá horrível XD
+
 - Problema maluco dos CSS não pegando porque problemas em relative path
    -  Pode ser resolvido embedando todos os scripts no próprio html (BLERGH)
+
+- Implementar select e tratar tipo do valor (na entrada!) Minutos, Horas, Dias, Meses, Anos, 
+
+- Implementar idéia: 
+Os valores de entrada no programinha meu lá, do jeito que ele tá hoje, 
+você precisa saber básicamente qual é o seu gasto diário, e quanto você ganha por dia
+Mas, Eu consigo fazer de um jeito onde você não precisaria 
+calcular tudo isso, e, dependendo dos seus lançamentos (qe supostamente vc faria na planilha) 
+ele já calcularia um monte dde coisa pra vc :3
+Assim, vc usaria o programa da seguinte forma:
+Vc escolhe o dia, aí vc coloca os gastos daquele dia
+E faria isso todo dia.
+aí se vc quiser saber qt vc gastou naquele período, vc seleciona os dias, aí ele calcula :D
